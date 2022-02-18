@@ -6,58 +6,32 @@ import static com.modandmohamed.assignment_2_dataaccessanddisplay.database.Conne
 
 public class Customer {
 
-        private Connection connect() {
-            Connection conn = null;
+    private Connection connect() {
+        Connection conn = null;
 
-            try {
-                conn = DriverManager.getConnection(URL);
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-            return conn;
+        try {
+            conn = DriverManager.getConnection(URL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+        return conn;
+    }
 
-        public void ReadAllCustomers(){
-            String sql = "SELECT * FROM Customer";
 
-            try {
-                Connection conn = this.connect();
-                Statement stmt  = conn.createStatement();
-                ResultSet rs    = stmt.executeQuery(sql);
-
-                // loop through the result set
-                while (rs.next()) {
-                    System.out.println(rs.getInt("CustomerId") +  "\t" +
-                            rs.getString("FirstName") + "\t" +
-                            rs.getString("LastName")  + "\t" +
-                            rs.getString("Country")  + "\t" +
-                            rs.getString("PostalCode")  + "\t" +
-                            rs.getString("Phone")  + "\t" +
-                            rs.getString("Email")
-
-                    );
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-    public void specificCustomerThroughID(Integer InputID){ // easier when inserting ID
-        String sql = "SELECT * FROM Customer WHERE CustomerId =" + InputID.toString();
-
-        try{
+    private void queryColumnsCustomer(String sql) {
+        try {
             Connection conn = this.connect();
-            Statement stmt  = conn.createStatement();
-            ResultSet rs    = stmt.executeQuery(sql);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
 
             // loop through the result set
             while (rs.next()) {
-                System.out.println(rs.getInt("CustomerId") +  "\t" +
+                System.out.println(rs.getInt("CustomerId") + "\t" +
                         rs.getString("FirstName") + "\t" +
-                        rs.getString("LastName")  + "\t" +
-                        rs.getString("Country")  + "\t" +
-                        rs.getString("PostalCode")  + "\t" +
-                        rs.getString("Phone")  + "\t" +
+                        rs.getString("LastName") + "\t" +
+                        rs.getString("Country") + "\t" +
+                        rs.getString("PostalCode") + "\t" +
+                        rs.getString("Phone") + "\t" +
                         rs.getString("Email")
 
                 );
@@ -68,10 +42,23 @@ public class Customer {
     }
 
 
-        public static void main(String[] args) {
-            Customer app = new Customer();
-            app.specificCustomerThroughID(12);
-        }
+    public void ReadAllCustomers() {
+        String sql = "SELECT * FROM Customer";
+
+        queryColumnsCustomer(sql);
+    }
+
+    public void specificCustomerThroughID(Integer InputID) { // easier when inserting ID
+        String sql = "SELECT * FROM Customer WHERE CustomerId =" + InputID.toString();
+
+        queryColumnsCustomer(sql);
+    }
+
+
+    public static void main(String[] args) {
+        Customer app = new Customer();
+        app.specificCustomerThroughID(12);
+    }
 
     //private properties
 
