@@ -8,6 +8,8 @@ public class Assignment2DataAccessAndDisplayApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(Assignment2DataAccessAndDisplayApplication.class, args);
+
+
     }
 
 }
