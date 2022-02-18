@@ -32,9 +32,7 @@ public class Customer {
                         rs.getString("Country") + "\t" +
                         rs.getString("PostalCode") + "\t" +
                         rs.getString("Phone") + "\t" +
-                        rs.getString("Email")
-
-                );
+                        rs.getString("Email"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -44,20 +42,25 @@ public class Customer {
 
     public void ReadAllCustomers() {
         String sql = "SELECT * FROM Customer";
-
         queryColumnsCustomer(sql);
     }
 
     public void specificCustomerThroughID(Integer InputID) { // easier when inserting ID
         String sql = "SELECT * FROM Customer WHERE CustomerId =" + InputID.toString();
+        queryColumnsCustomer(sql);
+    }
 
+    public void searchCustomerThroughName(String Name) {
+        String sql = "SELECT * FROM Customer WHERE FirstName LIKE '" + Name + "'" ;
+//        String sql = String.format("SELECT * FROM Customer WHERE FirstName = '%S'", Name); // doesnt work
         queryColumnsCustomer(sql);
     }
 
 
+
     public static void main(String[] args) {
         Customer app = new Customer();
-        app.specificCustomerThroughID(12);
+        app.searchCustomerThroughName("Leonie");
     }
 
     //private properties
