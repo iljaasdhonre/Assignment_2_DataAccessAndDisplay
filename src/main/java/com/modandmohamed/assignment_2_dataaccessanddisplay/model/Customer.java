@@ -17,7 +17,6 @@ public class Customer {
             return conn;
         }
 
-
         public void ReadAllCustomers(){
             String sql = "SELECT * FROM Customer";
 
