@@ -1,26 +1,15 @@
-package com.modandmohamed.assignment_2_dataaccessanddisplay.model;
+package com.modandmohamed.assignment_2_dataaccessanddisplay.dataaccess.repository;
+
+import com.modandmohamed.assignment_2_dataaccessanddisplay.dataaccess.database.ConnectionManager;
 
 import java.sql.*;
 
-import static com.modandmohamed.assignment_2_dataaccessanddisplay.database.ConnectionHelper.URL;
+public class CustomerRepo {
 
-public class Customer {
-
-    private Connection connect() {
-        Connection conn = null;
-
-        try {
-            conn = DriverManager.getConnection(URL);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return conn;
-    }
-
+    Connection conn = ConnectionManager.getInstance().getDbConnection();
 
     private void queryColumnsCustomer(String sql) {
         try {
-            Connection conn = this.connect();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -36,9 +25,15 @@ public class Customer {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException sqe) {
+                sqe.printStackTrace();
+                System.exit(-1);
+            }
         }
     }
-
 
     public void ReadAllCustomers() {
         String sql = "SELECT * FROM Customer";
@@ -51,22 +46,8 @@ public class Customer {
     }
 
     public void searchCustomerThroughName(String Name) {
-        String sql = "SELECT * FROM Customer WHERE FirstName LIKE '" + Name + "'" ;
+        String sql = "SELECT * FROM Customer WHERE FirstName LIKE '" + Name + "'";
 //        String sql = String.format("SELECT * FROM Customer WHERE FirstName = '%S'", Name); // doesnt work
         queryColumnsCustomer(sql);
     }
-
-
-
-    public static void main(String[] args) {
-        Customer app = new Customer();
-        app.searchCustomerThroughName("Leonie");
-    }
-
-    //private properties
-
-    //constructor
-
-
-    //getter and setters
 }

@@ -1,4 +1,4 @@
-package com.modandmohamed.assignment_2_dataaccessanddisplay.database;
+package com.modandmohamed.assignment_2_dataaccessanddisplay.dataaccess.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
