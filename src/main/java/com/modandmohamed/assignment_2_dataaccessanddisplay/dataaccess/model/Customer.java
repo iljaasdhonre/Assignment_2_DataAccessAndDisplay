@@ -4,16 +4,16 @@ import java.sql.*;
 
 import static com.modandmohamed.assignment_2_dataaccessanddisplay.dataaccess.database.ConnectionHelper.URL;
 
-public class Customer { //private properties
+public class Customer {
     private String firstName;
     private String lastName;
-    private String customerID;
+    private int customerID;
     private String country;
     private String postalCode;
     private String phoneNumber;
     private String email;
 
-    public Customer(String firstName, String lastName, String customerID, String country, String postalCode, String phoneNumber, String email) {
+    public Customer(String firstName, String lastName, int customerID, String country, String postalCode, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.customerID = customerID;
@@ -40,11 +40,11 @@ public class Customer { //private properties
         this.lastName = lastName;
     }
 
-    public String getCustomerID() {
+    public int getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(String customerID) {
+    public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
 
