@@ -50,4 +50,5 @@ public class CustomerRepo {
 //        String sql = String.format("SELECT * FROM Customer WHERE FirstName = '%S'", Name); // doesnt work
         queryColumnsCustomer(sql);
     }
+
 }
