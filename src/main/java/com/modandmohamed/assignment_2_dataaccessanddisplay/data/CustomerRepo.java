@@ -2,11 +2,13 @@ package com.modandmohamed.assignment_2_dataaccessanddisplay.data;
 
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Customer;
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.CustomerCountry;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerRepo {
+@Service
+public class CustomerRepo implements ICustomerRepo {
 
     public CustomerRepo() {
     }
@@ -15,9 +17,14 @@ public class CustomerRepo {
     private Connection conn = null;
 
     //Get all customers from customer table
+    @Override
     public ArrayList<Customer> getAllCustomers() {
 
-        String sqlQuery = "SELECT * FROM Customer";
+        String sqlQuery = "SELECT " +
+                "C.CustomerId, C.FirstName, C.LastName, C.PostalCode," +
+                "C.Phone, C.Email, C.Country " +
+                "FROM Customer C";
+
         ArrayList<Customer> customers = new ArrayList<>();
 
         try {
@@ -61,6 +68,7 @@ public class CustomerRepo {
     }
 
     //Get customer from DB with parameter customerId
+    @Override
     public Customer getCustomerById(String customerId) {
         Customer customer = null;
         String sqlQuery = "SELECT CustomerId, FirstName, LastName, PostalCode, Phone, Email, Country" +
@@ -106,6 +114,7 @@ public class CustomerRepo {
     }
 
     //Add new customer to DB with Customer object in parameter
+    @Override
     public boolean addCustomer(Customer customer) {
         boolean success = false;
         String sqlQuery =
@@ -153,6 +162,7 @@ public class CustomerRepo {
     }
 
     //Update existing customer with Customer object in parameter
+    @Override
     public boolean updateCustomer(Customer customer) {
         boolean success = false;
 
@@ -200,6 +210,7 @@ public class CustomerRepo {
     }
 
     //Get customer by given firstname and lastname
+    @Override
     public Customer getCustomerByName(String firstName, String lastName) {
         Customer customer = null;
         String sqlQuery = "SELECT * " +
@@ -246,6 +257,7 @@ public class CustomerRepo {
     }
 
     //Get a set of customers by setting a limit and offset
+    @Override
     public ArrayList<Customer> getCustomerByLimitAndOffset(String limit, String offset) {
         String sqlQuery = "SELECT * " +
                 "FROM Customer " +
@@ -289,6 +301,7 @@ public class CustomerRepo {
     }
 
     //Get the total amount of customers per country
+    @Override
     public ArrayList<CustomerCountry> getCustomersInCountry() {
         ArrayList<CustomerCountry> customersInCountry = new ArrayList<>();
         String sqlQuery = "SELECT COUNT(CustomerId), Country " +
@@ -330,6 +343,7 @@ public class CustomerRepo {
     }
 
     //Get the total amount of spending per customer
+    @Override
     public ArrayList<Customer> getCustomerSpending(){
         String sqlQuery = "SELECT  C.*, SUM(I.Total) AS Total " +
                 "FROM Customer C " +
