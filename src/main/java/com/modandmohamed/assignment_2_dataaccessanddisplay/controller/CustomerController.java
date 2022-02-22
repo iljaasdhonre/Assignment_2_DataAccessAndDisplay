@@ -54,6 +54,11 @@ public class CustomerController {
         return customerRepo.getCustomerSpending();
     }
 
+    @GetMapping("customers/mostpopulargenre")
+    public ArrayList<Customer> getMostPopularGenreCustomer(){
+        return customerRepo.getMostPopularGenreCustomer();
+    }
+
     @PostMapping("/customers")
     public boolean addNewCustomer(@RequestBody Customer customer) {
         return customerRepo.addCustomer(customer);

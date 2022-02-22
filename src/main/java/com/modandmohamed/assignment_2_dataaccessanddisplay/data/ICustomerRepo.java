@@ -16,5 +16,5 @@ public interface ICustomerRepo {
     ArrayList<Customer> getCustomerSpending();
     boolean addCustomer(Customer customer);
     boolean updateCustomer(Customer customer);
-
+    ArrayList<Customer> getMostPopularGenreCustomer();
 }

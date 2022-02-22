@@ -10,16 +10,17 @@ import java.util.ArrayList;
 @Service
 public class CustomerRepo implements ICustomerRepo {
 
+    private final String URL = ConnectionHelper.URL;
+    private Connection conn = null;
+
     public CustomerRepo() {
     }
 
-    private final String URL = ConnectionHelper.URL;
-    private Connection conn = null;
+
 
     //Get all customers from customer table
     @Override
     public ArrayList<Customer> getAllCustomers() {
-
         String sqlQuery = "SELECT " +
                 "C.CustomerId, C.FirstName, C.LastName, C.PostalCode," +
                 "C.Phone, C.Email, C.Country " +
@@ -397,4 +398,65 @@ public class CustomerRepo implements ICustomerRepo {
         }
         return customers;
     }
+
+    //Get the total amount of spending per customer
+    @Override
+    public ArrayList<Customer> getMostPopularGenreCustomer(){
+        ArrayList<Customer> customers = new ArrayList<>();
+
+        String sqlQuery = "SELECT  * " +
+                "FROM Customer " +
+                "JOIN Invoice on Customer.CustomerId = Invoice.CustomerId " +
+                "JOIN InvoiceLine on Invoice.InvoiceId = InvoiceLine.invoiceId " +
+                "JOIN Track on InvoiceLine.TrackId = Track.TrackId " +
+                "JOIN Genre on Track.GenreId = Genre.GenreId "; http://localhost:8080/customers/mostpopulargenre
+
+
+
+
+        try {
+            //Connect to DB
+            conn = DriverManager.getConnection(URL);
+            System.out.println("Connection established");
+
+            //Make query
+            PreparedStatement statement = conn.prepareStatement(sqlQuery);
+
+            //Execute query
+            ResultSet rs = statement.executeQuery();
+
+            //Process result
+            while (rs.next()) {
+                customers.add(
+                        new Customer(
+                                rs.getInt("CustomerId"),
+                                rs.getString("FirstName"),
+                                rs.getString("LastName"),
+                                rs.getString("PostalCode"),
+                                rs.getString("Phone"),
+                                rs.getString("Email"),
+                                rs.getString("Country"),
+                                rs.getDouble("Total")
+                        )
+                );
+            }
+
+            //Print list
+            customers.forEach(customer ->
+                    System.out.println(customer.getFirstName() + ": " + customer.getTotalSpending()));
+
+        } catch (SQLException sqe){
+            System.out.println(sqe.getMessage());
+        } finally {
+            try {
+                conn.close();
+                System.out.println("Connection closed");
+            } catch (SQLException sqe) {
+                sqe.printStackTrace();
+                System.exit(-1);
+            }
+        }
+        return customers;
+    }
+
 }
