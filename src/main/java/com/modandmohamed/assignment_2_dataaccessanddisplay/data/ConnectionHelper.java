@@ -1,4 +1,4 @@
-package com.modandmohamed.assignment_2_dataaccessanddisplay.dataaccess.database;
+package com.modandmohamed.assignment_2_dataaccessanddisplay.data;
 
 public class ConnectionHelper {
 

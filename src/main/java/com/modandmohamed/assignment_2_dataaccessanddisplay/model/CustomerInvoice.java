@@ -1,4 +1,4 @@
-package com.modandmohamed.assignment_2_dataaccessanddisplay.dataaccess.model;
+package com.modandmohamed.assignment_2_dataaccessanddisplay.model;
 
 import java.util.Date;
 

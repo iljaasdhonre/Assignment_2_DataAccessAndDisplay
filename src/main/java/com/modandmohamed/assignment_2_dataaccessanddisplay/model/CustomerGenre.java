@@ -1,4 +1,4 @@
-package com.modandmohamed.assignment_2_dataaccessanddisplay.dataaccess.model;
+package com.modandmohamed.assignment_2_dataaccessanddisplay.model;
 
 public class CustomerGenre {
     private int genreId;
@@ -14,7 +14,7 @@ public class CustomerGenre {
     }
 
     public void setGenreId(int genreId) {
-        genreId = genreId;
+        this.genreId = genreId;
     }
 
     public String getName() {
