@@ -10,10 +10,11 @@ import java.util.ArrayList;
 public interface ICustomerRepo {
     ArrayList<Customer> getAllCustomers();
     Customer getCustomerById(String customerId);
-    boolean addCustomer(Customer customer);
-    boolean updateCustomer(Customer customer);
     Customer getCustomerByName(String firstName, String lastName);
     ArrayList<Customer> getCustomerByLimitAndOffset(String limit, String offset);
     ArrayList<CustomerCountry> getCustomersInCountry();
     ArrayList<Customer> getCustomerSpending();
+    boolean addCustomer(Customer customer);
+    boolean updateCustomer(Customer customer);
+
 }
