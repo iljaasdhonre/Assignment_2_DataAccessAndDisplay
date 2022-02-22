@@ -20,7 +20,11 @@ public class CustomerRepo implements ICustomerRepo {
     @Override
     public ArrayList<Customer> getAllCustomers() {
 
-        String sqlQuery = "SELECT * FROM Customer";
+        String sqlQuery = "SELECT " +
+                "C.CustomerId, C.FirstName, C.LastName, C.PostalCode," +
+                "C.Phone, C.Email, C.Country " +
+                "FROM Customer C";
+
         ArrayList<Customer> customers = new ArrayList<>();
 
         try {

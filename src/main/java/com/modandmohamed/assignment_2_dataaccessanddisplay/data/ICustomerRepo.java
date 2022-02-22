@@ -2,9 +2,11 @@ package com.modandmohamed.assignment_2_dataaccessanddisplay.data;
 
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Customer;
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.CustomerCountry;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+@Repository
 public interface ICustomerRepo {
     ArrayList<Customer> getAllCustomers();
     Customer getCustomerById(String customerId);
