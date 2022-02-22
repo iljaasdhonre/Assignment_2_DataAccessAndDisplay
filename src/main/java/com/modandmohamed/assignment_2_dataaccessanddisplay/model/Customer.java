@@ -1,26 +1,38 @@
-package com.modandmohamed.assignment_2_dataaccessanddisplay.dataaccess.model;
-
-import java.sql.*;
-
-import static com.modandmohamed.assignment_2_dataaccessanddisplay.dataaccess.database.ConnectionHelper.URL;
+package com.modandmohamed.assignment_2_dataaccessanddisplay.model;
 
 public class Customer {
+    private int customerId;
     private String firstName;
     private String lastName;
-    private int customerID;
-    private String country;
     private String postalCode;
-    private String phoneNumber;
+    private String phone;
     private String email;
+    private String country;
+    private double totalSpending;
 
-    public Customer(String firstName, String lastName, int customerID, String country, String postalCode, String phoneNumber, String email) {
+    public Customer(int customerId, String firstName, String lastName,
+                    String postalCode, String phone, String email,
+                    String country) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.customerID = customerID;
+        this.customerId = customerId;
         this.country = country;
         this.postalCode = postalCode;
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
         this.email = email;
+    }
+
+    public Customer(int customerId, String firstName, String lastName,
+                    String postalCode, String phone, String email,
+                    String country, double totalSpending) {
+        this.customerId = customerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.postalCode = postalCode;
+        this.phone = phone;
+        this.email = email;
+        this.country = country;
+        this.totalSpending = totalSpending;
     }
 
     //getter and setters
@@ -40,12 +52,12 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public int getCustomerID() {
-        return customerID;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getCountry() {
@@ -64,12 +76,12 @@ public class Customer {
         this.postalCode = postalCode;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -80,17 +92,24 @@ public class Customer {
         this.email = email;
     }
 
+    public double getTotalSpending() {
+        return totalSpending;
+    }
+
+    public void setTotalSpending(double totalSpending) {
+        this.totalSpending = totalSpending;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", customerID='" + customerID + '\'' +
+                ", customerID='" + customerId + '\'' +
                 ", country='" + country + '\'' +
                 ", postalCode='" + postalCode + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", phoneNumber='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
 }
-
