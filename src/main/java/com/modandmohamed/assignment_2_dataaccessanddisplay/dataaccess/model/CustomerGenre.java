@@ -1,27 +1,27 @@
 package com.modandmohamed.assignment_2_dataaccessanddisplay.dataaccess.model;
 
 public class CustomerGenre {
-    private Integer GenreId;
-    private String Name;
+    private int genreId;
+    private String name;
 
-    public CustomerGenre(Integer genreId, String name) {
-        GenreId = genreId;
-        Name = name;
+    public CustomerGenre(int genreId, String name) {
+        this.genreId = genreId;
+        this.name = name;
     }
 
-    public Integer getGenreId() {
-        return GenreId;
+    public int getGenreId() {
+        return genreId;
     }
 
-    public void setGenreId(Integer genreId) {
-        GenreId = genreId;
+    public void setGenreId(int genreId) {
+        genreId = genreId;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 }
