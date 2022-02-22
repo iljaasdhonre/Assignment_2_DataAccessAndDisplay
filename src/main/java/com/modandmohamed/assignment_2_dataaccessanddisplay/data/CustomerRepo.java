@@ -2,6 +2,7 @@ package com.modandmohamed.assignment_2_dataaccessanddisplay.data;
 
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Customer;
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.CustomerCountry;
+import com.modandmohamed.assignment_2_dataaccessanddisplay.model.CustomerGenre;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -12,11 +13,6 @@ public class CustomerRepo implements ICustomerRepo {
 
     private final String URL = ConnectionHelper.URL;
     private Connection conn = null;
-
-    public CustomerRepo() {
-    }
-
-
 
     //Get all customers from customer table
     @Override
@@ -345,7 +341,7 @@ public class CustomerRepo implements ICustomerRepo {
 
     //Get the total amount of spending per customer
     @Override
-    public ArrayList<Customer> getCustomerSpending(){
+    public ArrayList<Customer> getCustomerSpending() {
         String sqlQuery = "SELECT  C.*, SUM(I.Total) AS Total " +
                 "FROM Customer C " +
                 "JOIN Invoice I on C.CustomerId = I.CustomerId " +
@@ -385,7 +381,7 @@ public class CustomerRepo implements ICustomerRepo {
             customers.forEach(customer ->
                     System.out.println(customer.getFirstName() + ": " + customer.getTotalSpending()));
 
-        } catch (SQLException sqe){
+        } catch (SQLException sqe) {
             System.out.println(sqe.getMessage());
         } finally {
             try {
@@ -399,20 +395,25 @@ public class CustomerRepo implements ICustomerRepo {
         return customers;
     }
 
-    //Get the total amount of spending per customer
+    //Get the most popular genre from customer by customerId
     @Override
-    public ArrayList<Customer> getMostPopularGenreCustomer(){
+    public ArrayList<Customer> getMostPopularGenreCustomer(String customerId) {
         ArrayList<Customer> customers = new ArrayList<>();
+        ArrayList<CustomerGenre> favoriteGenre = new ArrayList<>();
 
-        String sqlQuery = "SELECT  * " +
-                "FROM Customer " +
-                "JOIN Invoice on Customer.CustomerId = Invoice.CustomerId " +
-                "JOIN InvoiceLine on Invoice.InvoiceId = InvoiceLine.invoiceId " +
-                "JOIN Track on InvoiceLine.TrackId = Track.TrackId " +
-                "JOIN Genre on Track.GenreId = Genre.GenreId "; http://localhost:8080/customers/mostpopulargenre
-
-
-
+        String sqlQuery = "WITH GenrePopularity AS" +
+                "(Select Count(G.GenreId) " +
+                "AS Popularity, C.FirstName, C.LastName, C.CustomerId, G.Name " +
+                "FROM Customer C " +
+                "JOIN Invoice I on C.CustomerId = I.CustomerId " +
+                "JOIN InvoiceLine IL on I.InvoiceId = IL.InvoiceId " +
+                "JOIN Track T on IL.TrackId = T.TrackId " +
+                "JOIN Genre G on T.GenreId = G.GenreId " +
+                "WHERE C.CustomerId = ? " +
+                "GROUP BY G.Name) " +
+                "SELECT gp.CustomerId, gp.FirstName, gp.LastName, gp.Name, gp.Popularity " +
+                "FROM GenrePopularity gp " +
+                "WHERE gp.Popularity = (SELECT max(Popularity) FROM GenrePopularity)";
 
         try {
             //Connect to DB
@@ -421,31 +422,29 @@ public class CustomerRepo implements ICustomerRepo {
 
             //Make query
             PreparedStatement statement = conn.prepareStatement(sqlQuery);
+            statement.setString(1, customerId);
 
             //Execute query
             ResultSet rs = statement.executeQuery();
 
             //Process result
             while (rs.next()) {
+                favoriteGenre.add(
+                        new CustomerGenre(
+                                rs.getString("Name"),
+                                rs.getInt("Popularity")
+                        )
+                );
                 customers.add(
                         new Customer(
                                 rs.getInt("CustomerId"),
                                 rs.getString("FirstName"),
                                 rs.getString("LastName"),
-                                rs.getString("PostalCode"),
-                                rs.getString("Phone"),
-                                rs.getString("Email"),
-                                rs.getString("Country"),
-                                rs.getDouble("Total")
+                                favoriteGenre
                         )
                 );
             }
-
-            //Print list
-            customers.forEach(customer ->
-                    System.out.println(customer.getFirstName() + ": " + customer.getTotalSpending()));
-
-        } catch (SQLException sqe){
+        } catch (SQLException sqe) {
             System.out.println(sqe.getMessage());
         } finally {
             try {
@@ -458,5 +457,4 @@ public class CustomerRepo implements ICustomerRepo {
         }
         return customers;
     }
-
 }

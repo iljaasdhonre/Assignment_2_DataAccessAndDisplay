@@ -1,6 +1,7 @@
 package com.modandmohamed.assignment_2_dataaccessanddisplay.model;
 
 public class CustomerCountry {
+
     //fields
     private String countryName;
     private int totalCustomers;

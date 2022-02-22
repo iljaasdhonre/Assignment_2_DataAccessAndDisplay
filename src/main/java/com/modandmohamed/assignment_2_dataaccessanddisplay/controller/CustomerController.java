@@ -28,6 +28,7 @@ public class CustomerController {
     public ArrayList<Customer> getAllCustomers() {
         return customerRepo.getAllCustomers();
     }
+
     @GetMapping("/customers/{id}")
     public Customer getCustomerById(@PathVariable String id) {
         return customerRepo.getCustomerById(id);
@@ -49,14 +50,15 @@ public class CustomerController {
     public ArrayList<Customer> getCustomersByLimitAndOffset(@RequestParam String limit, String offset) {
         return customerRepo.getCustomerByLimitAndOffset(limit, offset);
     }
-    @GetMapping("customers/totalspending")
-    public ArrayList<Customer> getCustomerTotalSpending(){
+
+    @GetMapping("customers/spending/total")
+    public ArrayList<Customer> getCustomerTotalSpending() {
         return customerRepo.getCustomerSpending();
     }
 
-    @GetMapping("customers/mostpopulargenre")
-    public ArrayList<Customer> getMostPopularGenreCustomer(){
-        return customerRepo.getMostPopularGenreCustomer();
+    @GetMapping("customers/{id}/genre/popular")
+    public ArrayList<Customer> getMostPopularGenreCustomer(@PathVariable String id){
+        return customerRepo.getMostPopularGenreCustomer(id);
     }
 
     @PostMapping("/customers")

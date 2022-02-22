@@ -1,6 +1,10 @@
 package com.modandmohamed.assignment_2_dataaccessanddisplay.model;
 
+import java.util.List;
+
 public class Customer {
+
+    //fields
     private int customerId;
     private String firstName;
     private String lastName;
@@ -9,7 +13,9 @@ public class Customer {
     private String email;
     private String country;
     private double totalSpending;
+    private List<CustomerGenre> favoriteGenre;
 
+    //constructors
     public Customer(int customerId, String firstName, String lastName,
                     String postalCode, String phone, String email,
                     String country) {
@@ -35,7 +41,15 @@ public class Customer {
         this.totalSpending = totalSpending;
     }
 
-    //getter and setters
+    public Customer(int customerId, String firstName, String lastName,
+                    List<CustomerGenre> favoriteGenre) {
+        this.customerId = customerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.favoriteGenre = favoriteGenre;
+    }
+
+    //getters and setters
     public String getFirstName() {
         return firstName;
     }
@@ -97,19 +111,31 @@ public class Customer {
     }
 
     public void setTotalSpending(double totalSpending) {
+
         this.totalSpending = totalSpending;
     }
 
+    public List<CustomerGenre> getFavoriteGenre() {
+        return favoriteGenre;
+    }
+
+    public void setFavoriteGenre(List<CustomerGenre> favoriteGenre) {
+        this.favoriteGenre = favoriteGenre;
+    }
+
+    //toString() method
     @Override
     public String toString() {
         return "Customer{" +
-                "firstName='" + firstName + '\'' +
+                "customerId=" + customerId +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", customerID='" + customerId + '\'' +
-                ", country='" + country + '\'' +
                 ", postalCode='" + postalCode + '\'' +
-                ", phoneNumber='" + phone + '\'' +
+                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
+                ", country='" + country + '\'' +
+                ", totalSpending=" + totalSpending +
+                ", favoriteGenre=" + favoriteGenre +
                 '}';
     }
 }

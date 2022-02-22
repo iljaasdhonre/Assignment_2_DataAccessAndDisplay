@@ -3,6 +3,8 @@ package com.modandmohamed.assignment_2_dataaccessanddisplay.model;
 import java.util.Date;
 
 public class CustomerInvoice {
+
+    //fields
     private int invoiceId; // p-key
     private int customerID; // f-key
     private Date invoiceDate;
@@ -13,6 +15,7 @@ public class CustomerInvoice {
     private String billingPostalCode;
     private double total;
 
+    //constructor
     public CustomerInvoice(int invoiceId, int customerID, Date invoiceDate, String billingAddress,
                            String billingCity, String billingState, String billingCountry,
                            String billingPostalCode, Integer total) {
@@ -28,6 +31,7 @@ public class CustomerInvoice {
         this.total = total;
     }
 
+    //getters and setters
     public int getInvoiceId() {
         return invoiceId;
     }
