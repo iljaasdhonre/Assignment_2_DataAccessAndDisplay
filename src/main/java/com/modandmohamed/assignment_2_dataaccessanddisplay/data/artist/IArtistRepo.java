@@ -9,5 +9,5 @@ import java.util.ArrayList;
 public interface IArtistRepo {
     ArrayList<Artist> getAllArtists();
     Artist getArtistById(String artistId);
-    Artist getArtistByName();
+    Artist getArtistByName(String name);
 }

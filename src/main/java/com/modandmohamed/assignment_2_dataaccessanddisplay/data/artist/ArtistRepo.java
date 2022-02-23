@@ -17,7 +17,7 @@ public class ArtistRepo implements IArtistRepo{
     @Override
     public ArrayList<Artist> getAllArtists() {
 
-        String sqlQuery = "SELECT Artist.ArtistId, Artist.Name FROM Artist";
+        String sqlQuery = "SELECT * FROM Artist";
 
         ArrayList<Artist> artists = new ArrayList<>();
 
@@ -62,8 +62,7 @@ public class ArtistRepo implements IArtistRepo{
 
         Artist artist = null;
 
-        String sqlQuery = "SELECT Artist.ArtistId, Artist.Name FROM Artist " +
-                          "WHERE Artist.ArtistId = ?";
+        String sqlQuery = "SELECT * FROM Artist WHERE ArtistId = ?";
 
         try {
             //Connect to DB
@@ -84,7 +83,6 @@ public class ArtistRepo implements IArtistRepo{
                         rs.getString("ArtistName")
                         );
             }
-            System.out.println("Get Artist by id: " + artistId + " successful");
         } catch (SQLException sqe) {
             System.out.println(sqe.getMessage());
         } finally {
@@ -102,7 +100,43 @@ public class ArtistRepo implements IArtistRepo{
 
 
     @Override
-    public Artist getArtistByName() {
-        return null;
+    public Artist getArtistByName(String name) {
+
+        Artist artist = null;
+
+        String sqlQuery = "SELECT * FROM Artist WHERE Name LIKE = ?";
+
+        try {
+            //Connect to DB
+            conn = DriverManager.getConnection(URL);
+            System.out.println("Connection established");
+
+            //Make query
+            PreparedStatement statement = conn.prepareStatement(
+                    sqlQuery);
+
+            //Execute query
+            ResultSet rs = statement.executeQuery();
+
+            //Process result
+            while (rs.next()) {
+                artist = new Artist(
+                        rs.getInt("ArtistId"),
+                        rs.getString("ArtistName")
+                );
+            }
+        } catch (SQLException sqe) {
+            System.out.println(sqe.getMessage());
+        } finally {
+            try {
+                conn.close();
+                System.out.println("Connection closed");
+            } catch (SQLException sqe) {
+                sqe.printStackTrace();
+                System.exit(-1);
+            }
+        }
+
+        return artist;
     }
 }
