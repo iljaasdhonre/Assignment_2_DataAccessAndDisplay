@@ -1,5 +1,6 @@
-package com.modandmohamed.assignment_2_dataaccessanddisplay.data;
+package com.modandmohamed.assignment_2_dataaccessanddisplay.data.customer;
 
+import com.modandmohamed.assignment_2_dataaccessanddisplay.data.ConnectionHelper;
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.*;
 import org.springframework.stereotype.Service;
 

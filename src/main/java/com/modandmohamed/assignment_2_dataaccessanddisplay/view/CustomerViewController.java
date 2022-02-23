@@ -1,6 +1,6 @@
 package com.modandmohamed.assignment_2_dataaccessanddisplay.view;
 
-import com.modandmohamed.assignment_2_dataaccessanddisplay.data.CustomerRepo;
+import com.modandmohamed.assignment_2_dataaccessanddisplay.data.customer.CustomerRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

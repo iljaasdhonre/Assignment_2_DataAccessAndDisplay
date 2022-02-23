@@ -1,4 +1,4 @@
-package com.modandmohamed.assignment_2_dataaccessanddisplay.data;
+package com.modandmohamed.assignment_2_dataaccessanddisplay.data.customer;
 
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Country;
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Customer;
