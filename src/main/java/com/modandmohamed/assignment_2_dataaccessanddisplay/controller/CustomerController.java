@@ -1,6 +1,6 @@
 package com.modandmohamed.assignment_2_dataaccessanddisplay.controller;
 
-import com.modandmohamed.assignment_2_dataaccessanddisplay.data.ICustomerRepo;
+import com.modandmohamed.assignment_2_dataaccessanddisplay.data.customer.ICustomerRepo;
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Country;
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Customer;
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.CustomerCountry;
