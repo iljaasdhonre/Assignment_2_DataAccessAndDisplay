@@ -11,8 +11,8 @@ public class Artist {
         this.artistId = artistId;
         this.artistName = artistName;
     }
-
     //getters and setters
+
     public int getArtistId() {
         return artistId;
     }

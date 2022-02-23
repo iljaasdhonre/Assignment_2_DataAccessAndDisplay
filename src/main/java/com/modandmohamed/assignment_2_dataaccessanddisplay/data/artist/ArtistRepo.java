@@ -2,8 +2,6 @@ package com.modandmohamed.assignment_2_dataaccessanddisplay.data.artist;
 
 import com.modandmohamed.assignment_2_dataaccessanddisplay.data.ConnectionHelper;
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Artist;
-import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Customer;
-import com.modandmohamed.assignment_2_dataaccessanddisplay.model.CustomerCountry;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ public class ArtistRepo implements IArtistRepo{
     @Override
     public ArrayList<Artist> getAllArtists() {
 
-        String sqlQuery = "SELECT * FROM Artist";
+        String sqlQuery = "SELECT * FROM Artist A ";
 
         ArrayList<Artist> artists = new ArrayList<>();
 
@@ -38,8 +36,9 @@ public class ArtistRepo implements IArtistRepo{
                 artists.add(
                         new Artist(
                                 rs.getInt("ArtistId"),
-                                rs.getString("ArtistName")
+                                rs.getString("Name")
                         ));
+                System.out.println(rs.getString("Name"));
             }
         } catch (SQLException sqe) {
             System.out.println(sqe.getMessage());
@@ -52,7 +51,6 @@ public class ArtistRepo implements IArtistRepo{
                 System.exit(-1);
             }
         }
-
         return artists;
     }
 
@@ -80,7 +78,7 @@ public class ArtistRepo implements IArtistRepo{
             while (rs.next()) {
                 artist = new Artist(
                         rs.getInt("ArtistId"),
-                        rs.getString("ArtistName")
+                        rs.getString("Name")
                         );
             }
         } catch (SQLException sqe) {
@@ -104,7 +102,7 @@ public class ArtistRepo implements IArtistRepo{
 
         Artist artist = null;
 
-        String sqlQuery = "SELECT * FROM Artist WHERE Name LIKE = ?";
+        String sqlQuery = "SELECT * FROM Artist WHERE Name LIKE ? ";
 
         try {
             //Connect to DB
@@ -122,7 +120,7 @@ public class ArtistRepo implements IArtistRepo{
             while (rs.next()) {
                 artist = new Artist(
                         rs.getInt("ArtistId"),
-                        rs.getString("ArtistName")
+                        rs.getString("Name")
                 );
             }
         } catch (SQLException sqe) {

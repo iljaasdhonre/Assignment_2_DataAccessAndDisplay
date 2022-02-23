@@ -37,7 +37,7 @@ public class TrackRepo implements ITrackRepo{
                 tracks.add(
                         new Track(
                                 rs.getInt("TrackId"),
-                                rs.getString("TrackName"),
+                                rs.getString("Name"),
                                 rs.getString("Composer"),
                                 rs.getInt("Milliseconds"),
                                 rs.getInt("Bytes"),
@@ -109,7 +109,7 @@ public class TrackRepo implements ITrackRepo{
 
         Track track = null;
 
-        String sqlQuery = "SELECT * FROM Track WHERE Name LIKE = ?";
+        String sqlQuery = "SELECT * FROM Track WHERE Name LIKE ? ";
 
         try {
             //Connect to DB
