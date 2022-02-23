@@ -1,14 +1,19 @@
 package com.modandmohamed.assignment_2_dataaccessanddisplay.view;
 
+
+import java.util.List;
 import java.util.Random;
 
 import com.modandmohamed.assignment_2_dataaccessanddisplay.data.track.TrackRepo;
+import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Track;
 
 
 public class RandomPickerTracks {
 
-    public String[] randomPickerTracks() {
-        String[] trackList = TrackRepo.getAllTracks(); // waarom moet deze static zijn?
+    public List<Track> randomPickerTracks() {
+        TrackRepo trackRepo = new TrackRepo();
+
+        List<Track> trackList = trackRepo.getAllTracks();
 
         Random one = new Random();
         Random two = new Random();
@@ -16,12 +21,13 @@ public class RandomPickerTracks {
         Random four = new Random();
         Random five = new Random();
 
-        int track_1 = one.nextInt(trackList.length);
-        int track_2 = two.nextInt(trackList.length);
-        int track_3 = three.nextInt(trackList.length);
-        int track_4 = four.nextInt(trackList.length);
-        int track_5 = five.nextInt(trackList.length);
+        int track_1 = one.nextInt(trackList.size());
+        int track_2 = two.nextInt(trackList.size());
+        int track_3 = three.nextInt(trackList.size());
+        int track_4 = four.nextInt(trackList.size());
+        int track_5 = five.nextInt(trackList.size());
 
-        return new String[]{trackList[track_1], trackList[track_2], trackList[track_3], trackList[track_4], trackList[track_5]};
+        return List.of(trackList.get(track_1), trackList.get(track_2), trackList.get(track_3),
+                trackList.get(track_4), trackList.get(track_5));
     }
 }
