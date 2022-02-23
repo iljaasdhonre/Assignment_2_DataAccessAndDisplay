@@ -4,16 +4,16 @@ public class Track {
 
     //fields
     private int trackId;
-    private String name;
+    private String trackName;
     private String composer;
     private int milliseconds;
     private int bytes;
     private double unitPrice;
 
     //constructor
-    public Track(int trackId, String name, String composer, int milliseconds, int bytes, double unitPrice) {
+    public Track(int trackId, String trackName, String composer, int milliseconds, int bytes, double unitPrice) {
         this.trackId = trackId;
-        this.name = name;
+        this.trackName = trackName;
         this.composer = composer;
         this.milliseconds = milliseconds;
         this.bytes = bytes;
@@ -29,12 +29,12 @@ public class Track {
         this.trackId = trackId;
     }
 
-    public String getName() {
-        return name;
+    public String getTrackName() {
+        return trackName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTrackName(String trackName) {
+        this.trackName = trackName;
     }
 
     public String getComposer() {

@@ -4,12 +4,12 @@ public class Artist {
 
     //fields
     private int artistId;
-    private String name;
+    private String artistName;
 
     //constructor
-    public Artist(int artistId, String name) {
+    public Artist(int artistId, String artistName) {
         this.artistId = artistId;
-        this.name = name;
+        this.artistName = artistName;
     }
 
     //getters and setters
@@ -21,11 +21,11 @@ public class Artist {
         this.artistId = artistId;
     }
 
-    public String getName() {
-        return name;
+    public String getArtistName() {
+        return artistName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 }
