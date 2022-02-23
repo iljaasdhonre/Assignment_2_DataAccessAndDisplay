@@ -1,27 +1,28 @@
 package com.modandmohamed.assignment_2_dataaccessanddisplay.model;
 
-public class CustomerGenre {
-    private int genreId;
-    private String name;
+import java.util.ArrayList;
+import java.util.List;
 
-    public CustomerGenre(int genreId, String name) {
-        this.genreId = genreId;
-        this.name = name;
+public class CustomerGenre extends Customer {
+
+    //fields
+    private List<Genre> favouriteGenre;
+
+    //constructor
+    public CustomerGenre(int customerId, String firstName, String lastName, String postalCode, String phone,
+                         String email, String country, List<Genre> favouriteGenre) {
+        super(customerId, firstName, lastName, postalCode, phone, email, country);
+        this.favouriteGenre = favouriteGenre;
     }
 
-    public int getGenreId() {
-        return genreId;
+    //getters and setters
+    public List<Genre> getFavouriteGenre() {
+        return favouriteGenre;
     }
 
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setFavouriteGenre(List<Genre> favouriteGenre) {
+        this.favouriteGenre = favouriteGenre;
     }
 }
+
+

@@ -1,6 +1,10 @@
 package com.modandmohamed.assignment_2_dataaccessanddisplay.model;
 
-public class Customer {
+import java.util.List;
+
+public abstract class Customer {
+
+    //fields
     private int customerId;
     private String firstName;
     private String lastName;
@@ -8,23 +12,13 @@ public class Customer {
     private String phone;
     private String email;
     private String country;
-    private double totalSpending;
 
-    public Customer(int customerId, String firstName, String lastName,
-                    String postalCode, String phone, String email,
-                    String country) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.customerId = customerId;
-        this.country = country;
-        this.postalCode = postalCode;
-        this.phone = phone;
-        this.email = email;
+    //constructors
+    public Customer() {
     }
 
     public Customer(int customerId, String firstName, String lastName,
-                    String postalCode, String phone, String email,
-                    String country, double totalSpending) {
+                    String postalCode, String phone, String email, String country) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,10 +26,10 @@ public class Customer {
         this.phone = phone;
         this.email = email;
         this.country = country;
-        this.totalSpending = totalSpending;
+
     }
 
-    //getter and setters
+    //getters and setters
     public String getFirstName() {
         return firstName;
     }
@@ -58,14 +52,6 @@ public class Customer {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getPostalCode() {
@@ -92,24 +78,11 @@ public class Customer {
         this.email = email;
     }
 
-    public double getTotalSpending() {
-        return totalSpending;
+    public String getCountry() {
+        return country;
     }
 
-    public void setTotalSpending(double totalSpending) {
-        this.totalSpending = totalSpending;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", customerID='" + customerId + '\'' +
-                ", country='" + country + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", phoneNumber='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
