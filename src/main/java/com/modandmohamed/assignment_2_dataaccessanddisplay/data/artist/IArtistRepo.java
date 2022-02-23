@@ -8,6 +8,6 @@ import java.util.ArrayList;
 @Repository
 public interface IArtistRepo {
     ArrayList<Artist> getAllArtists();
-    Artist getArtistById();
+    Artist getArtistById(String artistId);
     Artist getArtistByName();
 }
