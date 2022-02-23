@@ -20,7 +20,7 @@ public class CustomerViewController {
 //        return "index";
 //    }
 //
-    @GetMapping("/allcustomers/")
+    @GetMapping("/allcustomers")
     public String getAllCustomers(Model model){
         model.addAttribute("customers", crepo.getAllCustomers());
         return "view-customers";
