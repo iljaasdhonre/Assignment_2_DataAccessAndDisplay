@@ -8,6 +8,6 @@ import java.util.ArrayList;
 @Repository
 public interface ITrackRepo {
     ArrayList<Track> getAllTracks();
-    Track getTrackById();
-    Track getTrackByName();
+    Track getTrackById(String trackId);
+    Track getTrackByName(String name);
 }
