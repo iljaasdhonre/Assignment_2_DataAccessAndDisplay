@@ -1,31 +1,10 @@
 package com.modandmohamed.assignment_2_dataaccessanddisplay.model;
 
-public class CustomerCountry {
+public class CustomerCountry extends Customer{
 
-    //fields
-    private String countryName;
-    private int totalCustomers;
-
-    //constructor
-    public CustomerCountry(String countryName, int totalCustomers) {
-        this.countryName = countryName;
-        this.totalCustomers = totalCustomers;
-    }
-
-    //getters and setters
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
-
-    public int getTotalCustomers() {
-        return totalCustomers;
-    }
-
-    public void setTotalCustomers(int totalCustomers) {
-        this.totalCustomers = totalCustomers;
+    //Constructor
+    public CustomerCountry(int customerId, String firstName, String lastName,
+                           String postalCode, String phone, String email, String country) {
+        super(customerId, firstName, lastName, postalCode, phone, email, country);
     }
 }

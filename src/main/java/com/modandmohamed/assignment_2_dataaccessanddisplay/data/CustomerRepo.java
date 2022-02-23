@@ -1,8 +1,6 @@
 package com.modandmohamed.assignment_2_dataaccessanddisplay.data;
 
-import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Customer;
-import com.modandmohamed.assignment_2_dataaccessanddisplay.model.CustomerCountry;
-import com.modandmohamed.assignment_2_dataaccessanddisplay.model.CustomerGenre;
+import com.modandmohamed.assignment_2_dataaccessanddisplay.model.*;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -11,12 +9,14 @@ import java.util.ArrayList;
 @Service
 public class CustomerRepo implements ICustomerRepo {
 
+    //Fields
     private final String URL = ConnectionHelper.URL;
     private Connection conn = null;
 
     //Get all customers from customer table
     @Override
     public ArrayList<Customer> getAllCustomers() {
+
         String sqlQuery = "SELECT " +
                 "C.CustomerId, C.FirstName, C.LastName, C.PostalCode," +
                 "C.Phone, C.Email, C.Country " +
@@ -39,7 +39,7 @@ public class CustomerRepo implements ICustomerRepo {
             //Process result
             while (rs.next()) {
                 customers.add(
-                        new Customer(
+                        new CustomerCountry(
                                 rs.getInt("CustomerId"),
                                 rs.getString("FirstName"),
                                 rs.getString("LastName"),
@@ -47,7 +47,6 @@ public class CustomerRepo implements ICustomerRepo {
                                 rs.getString("Phone"),
                                 rs.getString("Email"),
                                 rs.getString("Country"))
-
                 );
             }
         } catch (SQLException sqe) {
@@ -68,8 +67,9 @@ public class CustomerRepo implements ICustomerRepo {
     @Override
     public Customer getCustomerById(String customerId) {
         Customer customer = null;
-        String sqlQuery = "SELECT CustomerId, FirstName, LastName, PostalCode, Phone, Email, Country" +
-                " FROM Customer WHERE CustomerId = ?";
+        String sqlQuery = "SELECT C.CustomerId, C.FirstName, C.LastName, " +
+                "C.PostalCode, C.Phone, C.Email, C.Country" +
+                " FROM Customer C WHERE C.CustomerId = ?";
 
         try {
             //Connect to DB
@@ -85,7 +85,7 @@ public class CustomerRepo implements ICustomerRepo {
 
             //Process result
             while (result.next()) {
-                customer = new Customer(
+                customer = new CustomerCountry(
                         result.getInt("CustomerId"),
                         result.getString("FirstName"),
                         result.getString("LastName"),
@@ -112,18 +112,17 @@ public class CustomerRepo implements ICustomerRepo {
 
     //Add new customer to DB with Customer object in parameter
     @Override
-    public boolean addCustomer(Customer customer) {
+    public boolean addCustomer(CustomerCountry customer) {
         boolean success = false;
         String sqlQuery =
                 "INSERT " + "INTO Customer(" +
-                        "CustomerId, " +
                         "FirstName, " +
                         "LastName, " +
                         "PostalCode, " +
                         "Phone, " +
                         "Email, " +
                         "Country)" +
-                        "VALUES(?,?,?,?,?,?,?)";
+                        "VALUES(?,?,?,?,?,?)";
 
         try {
             //Connect to DB
@@ -132,13 +131,12 @@ public class CustomerRepo implements ICustomerRepo {
 
             //Make query
             PreparedStatement statement = conn.prepareStatement(sqlQuery);
-            statement.setInt(1, customer.getCustomerId());
-            statement.setString(2, customer.getFirstName());
-            statement.setString(3, customer.getLastName());
-            statement.setString(4, customer.getPostalCode());
-            statement.setString(5, customer.getPhone());
-            statement.setString(6, customer.getEmail());
-            statement.setString(7, customer.getCountry());
+            statement.setString(1, customer.getFirstName());
+            statement.setString(2, customer.getLastName());
+            statement.setString(3, customer.getPostalCode());
+            statement.setString(4, customer.getPhone());
+            statement.setString(5, customer.getEmail());
+            statement.setString(6, customer.getCountry());
 
             //Execute query
             int result = statement.executeUpdate();
@@ -160,7 +158,7 @@ public class CustomerRepo implements ICustomerRepo {
 
     //Update existing customer with Customer object in parameter
     @Override
-    public boolean updateCustomer(Customer customer) {
+    public boolean updateCustomer(String customerId, CustomerCountry customer) {
         boolean success = false;
 
         String sqlQuery =
@@ -186,7 +184,7 @@ public class CustomerRepo implements ICustomerRepo {
             statement.setString(4, customer.getPostalCode());
             statement.setString(5, customer.getPhone());
             statement.setString(6, customer.getEmail());
-            statement.setInt(7, customer.getCustomerId());
+            statement.setString(7, customerId);
 
             //Execute query
             int result = statement.executeUpdate();
@@ -204,6 +202,75 @@ public class CustomerRepo implements ICustomerRepo {
             }
         }
         return success;
+    }
+
+    //Get the favourite genre of a customer by id as parameter
+    @Override
+    public ArrayList<CustomerGenre> getMostPopularGenreCustomer(String customerId) {
+        ArrayList<CustomerGenre> customers = new ArrayList<>();
+        ArrayList<Genre> favouriteGenre = new ArrayList<>();
+
+        String sqlQuery = "WITH GenrePopularity AS" +
+                "(Select Count(G.GenreId) " +
+                "AS Popularity, C.CustomerId, C.FirstName, C.LastName, C.PostalCode, C.Phone, C.Email, " +
+                "C.Country, G.Name " +
+                "FROM Customer C " +
+                "JOIN Invoice I on C.CustomerId = I.CustomerId " +
+                "JOIN InvoiceLine IL on I.InvoiceId = IL.InvoiceId " +
+                "JOIN Track T on IL.TrackId = T.TrackId " +
+                "JOIN Genre G on T.GenreId = G.GenreId " +
+                "WHERE C.CustomerId = ? " +
+                "GROUP BY G.Name) " +
+                "SELECT gp.CustomerId, gp.FirstName, gp.LastName, gp.PostalCode, gp.Phone, gp.Email, " +
+                "gp.Country, gp.Name, gp.Popularity " +
+                "FROM GenrePopularity gp " +
+                "WHERE gp.Popularity = (SELECT max(Popularity) FROM GenrePopularity)";
+
+        try {
+            //Connect to DB
+            conn = DriverManager.getConnection(URL);
+            System.out.println("Connection established");
+
+            //Make query
+            PreparedStatement statement = conn.prepareStatement(sqlQuery);
+            statement.setString(1, customerId);
+
+            //Execute query
+            ResultSet rs = statement.executeQuery();
+
+            //Process result
+            while (rs.next()) {
+                favouriteGenre.add(
+                        new Genre(
+                                rs.getString("Name")
+                        )
+                );
+                customers.add(
+                        new CustomerGenre(
+                                rs.getInt("CustomerId"),
+                                rs.getString("FirstName"),
+                                rs.getString("LastName"),
+                                rs.getString("PostalCode"),
+                                rs.getString("Phone"),
+                                rs.getString("Email"),
+                                rs.getString("Country"),
+                                favouriteGenre
+                        )
+                );
+            }
+
+        } catch (SQLException sqe) {
+            System.out.println(sqe.getMessage());
+        } finally {
+            try {
+                conn.close();
+                System.out.println("Connection closed");
+            } catch (SQLException sqe) {
+                sqe.printStackTrace();
+                System.exit(-1);
+            }
+        }
+        return customers;
     }
 
     //Get customer by given firstname and lastname
@@ -229,7 +296,7 @@ public class CustomerRepo implements ICustomerRepo {
 
             //Process rs
             while (rs.next()) {
-                customer = new Customer(
+                customer = new CustomerCountry(
                         rs.getInt("CustomerId"),
                         rs.getString("FirstName"),
                         rs.getString("LastName"),
@@ -278,7 +345,14 @@ public class CustomerRepo implements ICustomerRepo {
 
             //Process result
             while (rs.next()) {
-                customers.add(new Customer(rs.getInt("CustomerId"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("PostalCode"), rs.getString("Phone"), rs.getString("Email"), rs.getString("Country"))
+                customers.add(new CustomerCountry(
+                        rs.getInt("CustomerId"),
+                        rs.getString("FirstName"),
+                        rs.getString("LastName"),
+                        rs.getString("PostalCode"),
+                        rs.getString("Phone"),
+                        rs.getString("Email"),
+                        rs.getString("Country"))
 
                 );
             }
@@ -299,8 +373,8 @@ public class CustomerRepo implements ICustomerRepo {
 
     //Get the total amount of customers per country
     @Override
-    public ArrayList<CustomerCountry> getCustomersInCountry() {
-        ArrayList<CustomerCountry> customersInCountry = new ArrayList<>();
+    public ArrayList<Country> getCustomersInCountry() {
+        ArrayList<Country> customersInCountry = new ArrayList<>();
         String sqlQuery = "SELECT COUNT(CustomerId), Country " +
                 "FROM Customer " +
                 "GROUP BY Country " +
@@ -319,11 +393,10 @@ public class CustomerRepo implements ICustomerRepo {
 
             //Process result
             while (rs.next()) {
-                customersInCountry.add(new CustomerCountry(rs.getString(2), rs.getInt(1)));
+                customersInCountry.add(new Country(
+                        rs.getString(2),
+                        rs.getInt(1)));
             }
-
-            //Print list
-            customersInCountry.forEach(customerCountry -> System.out.println(customerCountry.getCountryName() + ": " + customerCountry.getTotalCustomers()));
 
         } catch (SQLException sqe) {
             System.out.println(sqe.getMessage());
@@ -342,13 +415,16 @@ public class CustomerRepo implements ICustomerRepo {
     //Get the total amount of spending per customer
     @Override
     public ArrayList<Customer> getCustomerSpending() {
-        String sqlQuery = "SELECT  C.*, SUM(I.Total) AS Total " +
+        ArrayList<Customer> customers = new ArrayList<>();
+
+        String sqlQuery = "SELECT  C.CustomerId, C.FirstName, C.LastName, C.PostalCode," +
+                "C.Phone, C.Email, C.Country, SUM(I.Total) AS Total " +
                 "FROM Customer C " +
                 "JOIN Invoice I on C.CustomerId = I.CustomerId " +
                 "GROUP BY C.CustomerId " +
                 "ORDER BY Total DESC";
 
-        ArrayList<Customer> customers = new ArrayList<>();
+
 
         try {
             //Connect to DB
@@ -364,7 +440,7 @@ public class CustomerRepo implements ICustomerRepo {
             //Process result
             while (rs.next()) {
                 customers.add(
-                        new Customer(
+                        new CustomerSpender(
                                 rs.getInt("CustomerId"),
                                 rs.getString("FirstName"),
                                 rs.getString("LastName"),
@@ -377,73 +453,6 @@ public class CustomerRepo implements ICustomerRepo {
                 );
             }
 
-            //Print list
-            customers.forEach(customer ->
-                    System.out.println(customer.getFirstName() + ": " + customer.getTotalSpending()));
-
-        } catch (SQLException sqe) {
-            System.out.println(sqe.getMessage());
-        } finally {
-            try {
-                conn.close();
-                System.out.println("Connection closed");
-            } catch (SQLException sqe) {
-                sqe.printStackTrace();
-                System.exit(-1);
-            }
-        }
-        return customers;
-    }
-
-    //Get the most popular genre from customer by customerId
-    @Override
-    public ArrayList<Customer> getMostPopularGenreCustomer(String customerId) {
-        ArrayList<Customer> customers = new ArrayList<>();
-        ArrayList<CustomerGenre> favoriteGenre = new ArrayList<>();
-
-        String sqlQuery = "WITH GenrePopularity AS" +
-                "(Select Count(G.GenreId) " +
-                "AS Popularity, C.FirstName, C.LastName, C.CustomerId, G.Name " +
-                "FROM Customer C " +
-                "JOIN Invoice I on C.CustomerId = I.CustomerId " +
-                "JOIN InvoiceLine IL on I.InvoiceId = IL.InvoiceId " +
-                "JOIN Track T on IL.TrackId = T.TrackId " +
-                "JOIN Genre G on T.GenreId = G.GenreId " +
-                "WHERE C.CustomerId = ? " +
-                "GROUP BY G.Name) " +
-                "SELECT gp.CustomerId, gp.FirstName, gp.LastName, gp.Name, gp.Popularity " +
-                "FROM GenrePopularity gp " +
-                "WHERE gp.Popularity = (SELECT max(Popularity) FROM GenrePopularity)";
-
-        try {
-            //Connect to DB
-            conn = DriverManager.getConnection(URL);
-            System.out.println("Connection established");
-
-            //Make query
-            PreparedStatement statement = conn.prepareStatement(sqlQuery);
-            statement.setString(1, customerId);
-
-            //Execute query
-            ResultSet rs = statement.executeQuery();
-
-            //Process result
-            while (rs.next()) {
-                favoriteGenre.add(
-                        new CustomerGenre(
-                                rs.getString("Name"),
-                                rs.getInt("Popularity")
-                        )
-                );
-                customers.add(
-                        new Customer(
-                                rs.getInt("CustomerId"),
-                                rs.getString("FirstName"),
-                                rs.getString("LastName"),
-                                favoriteGenre
-                        )
-                );
-            }
         } catch (SQLException sqe) {
             System.out.println(sqe.getMessage());
         } finally {
