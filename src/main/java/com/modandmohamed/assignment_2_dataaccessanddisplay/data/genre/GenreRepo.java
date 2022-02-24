@@ -14,7 +14,10 @@ public class GenreRepo implements IGenreRepo {
     @Override
     public ArrayList<Genre> getAllGenres() {
         ArrayList<Genre> genres = new ArrayList<>();
-        String sqlQuery = "SELECT G.Name FROM Genre G ";
+        String sqlQuery = "SELECT G.Name " +
+                "FROM Genre G " +
+                "ORDER BY RANDOM() " +
+                "LIMIT 5";
 
         try {
             //connect to DB

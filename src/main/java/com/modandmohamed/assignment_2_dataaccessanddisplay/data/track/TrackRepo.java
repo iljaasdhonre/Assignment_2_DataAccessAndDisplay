@@ -1,7 +1,6 @@
 package com.modandmohamed.assignment_2_dataaccessanddisplay.data.track;
 
 import com.modandmohamed.assignment_2_dataaccessanddisplay.data.ConnectionHelper;
-import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Artist;
 import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Track;
 
 import java.sql.*;
@@ -16,7 +15,10 @@ public class TrackRepo implements ITrackRepo{
     @Override
     public ArrayList<Track> getAllTracks() {
 
-        String sqlQuery = "SELECT * FROM Track";
+        String sqlQuery = "SELECT T.TrackId, T.Name " +
+                "FROM Track T " +
+                "ORDER BY RANDOM() " +
+                "LIMIT 5";
 
         ArrayList<Track> tracks = new ArrayList<>();
 
@@ -37,11 +39,7 @@ public class TrackRepo implements ITrackRepo{
                 tracks.add(
                         new Track(
                                 rs.getInt("TrackId"),
-                                rs.getString("Name"),
-                                rs.getString("Composer"),
-                                rs.getInt("Milliseconds"),
-                                rs.getInt("Bytes"),
-                                rs.getDouble("UnitPrice")
+                                rs.getString("Name")
                         ));
             }
         } catch (SQLException sqe) {
@@ -83,11 +81,7 @@ public class TrackRepo implements ITrackRepo{
             while (rs.next()) {
                 track = new Track(
                                 rs.getInt("TrackId"),
-                                rs.getString("TrackName"),
-                                rs.getString("Composer"),
-                                rs.getInt("Milliseconds"),
-                                rs.getInt("Bytes"),
-                                rs.getDouble("UnitPrice")
+                                rs.getString("TrackName")
                 );
             }
         } catch (SQLException sqe) {
@@ -127,11 +121,7 @@ public class TrackRepo implements ITrackRepo{
             while (rs.next()) {
                 track = new Track(
                         rs.getInt("TrackId"),
-                        rs.getString("TrackName"),
-                        rs.getString("Composer"),
-                        rs.getInt("Milliseconds"),
-                        rs.getInt("Bytes"),
-                        rs.getDouble("UnitPrice")
+                        rs.getString("TrackName")
                 );
             }
         } catch (SQLException sqe) {

@@ -6,7 +6,7 @@ import com.modandmohamed.assignment_2_dataaccessanddisplay.model.Artist;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ArtistRepo implements IArtistRepo{
+public class ArtistRepo implements IArtistRepo {
 
     private final String URL = ConnectionHelper.URL;
     private Connection conn = null;
@@ -15,7 +15,10 @@ public class ArtistRepo implements IArtistRepo{
     @Override
     public ArrayList<Artist> getAllArtists() {
 
-        String sqlQuery = "SELECT * FROM Artist A ";
+        String sqlQuery = "SELECT * " +
+                "FROM Artist A " +
+                "ORDER BY RANDOM() " +
+                "LIMIT 5";
 
         ArrayList<Artist> artists = new ArrayList<>();
 
@@ -79,7 +82,7 @@ public class ArtistRepo implements IArtistRepo{
                 artist = new Artist(
                         rs.getInt("ArtistId"),
                         rs.getString("Name")
-                        );
+                );
             }
         } catch (SQLException sqe) {
             System.out.println(sqe.getMessage());
