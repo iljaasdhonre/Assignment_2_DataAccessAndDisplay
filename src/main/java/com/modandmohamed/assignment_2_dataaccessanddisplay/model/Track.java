@@ -12,6 +12,10 @@ public class Track {
         this.name = name;
     }
 
+    public Track() {
+
+    }
+
     //getters and setters
     public int getTrackId() {
         return trackId;

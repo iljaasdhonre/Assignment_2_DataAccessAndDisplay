@@ -11,16 +11,15 @@
 <body>
 <h1>Overview</h1>
 <div class="container-fluid">
-    <div class="row ">
-        <div class="input-group">
-            <div class="form-outline">
-                <input type="search" id="form1" class="form-control" />
-                <label class="form-label" for="form1">Search</label>
-            </div>
-            <button type="button" class="btn btn-primary">
-                <i class="fas fa-search"></i>
-            </button>
+    <form th:action="@{/}" method="get">
+        <div>
+            <label for="trackSearch">Search:</label>
+            <input id="trackSearch" type="text" />
+            <input type="submit" value="Submit" />
         </div>
+    </form>
+    <div th:if="${success} == false">
+        <strong>Oops!</strong> Something has gone wrong :(
     </div>
     <div class="row odd-row-color">
         <div class="col">

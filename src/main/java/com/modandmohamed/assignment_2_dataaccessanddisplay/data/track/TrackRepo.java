@@ -41,6 +41,7 @@ public class TrackRepo implements ITrackRepo{
                                 rs.getInt("TrackId"),
                                 rs.getString("Name")
                         ));
+                System.out.println(rs.getString("Name"));
             }
         } catch (SQLException sqe) {
             System.out.println(sqe.getMessage());
