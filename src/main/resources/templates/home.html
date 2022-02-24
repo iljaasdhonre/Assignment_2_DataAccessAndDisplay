@@ -11,23 +11,19 @@
 <body>
 <h1>Overview</h1>
 <div class="container-fluid">
-    <div class="row ">
-        <div class="input-group">
-            <div class="form-outline">
-                <input type="search" id="form1" class="form-control" />
-                <label class="form-label" for="form1">Search</label>
-            </div>
-            <button type="button" class="btn btn-primary">
-                <i class="fas fa-search"></i>
-            </button>
+    <form th:action="@{/trackSearch}"  method="get">
+        <div>
+            <label for="trackSearch" ></label>
+            <input id="trackSearch" type="text" th:name="query" placeholder="Search me..."/>
+            <input class="ui-button" type="submit" value="Search" />
         </div>
-    </div>
+    </form>
     <div class="row odd-row-color">
         <div class="col">
-            <table>
-                <thead>
+            <table class="table">
+                <thead class="table-header">
                 <tr>
-                    <th>Artist</th>
+                    <th>Artists</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,10 +34,10 @@
             </table>
         </div>
         <div class="col">
-            <table>
-                <thead>
+            <table class="table">
+                <thead class="table-header">
                 <tr>
-                    <th>Track</th>
+                    <th>Tracks</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,10 +48,10 @@
             </table>
         </div>
         <div class="col">
-            <table>
-                <thead>
+            <table class="table">
+                <thead class="table-header">
                 <tr>
-                    <th>Genre</th>
+                    <th>Genres</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -72,3 +68,4 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+

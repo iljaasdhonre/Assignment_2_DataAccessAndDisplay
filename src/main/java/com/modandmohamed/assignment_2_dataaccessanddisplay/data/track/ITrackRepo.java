@@ -9,5 +9,5 @@ import java.util.ArrayList;
 public interface ITrackRepo {
     ArrayList<Track> getAllTracks();
     Track getTrackById(String trackId);
-    Track getTrackByName(String name);
+    ArrayList<Track> getTrackByName(String name);
 }
