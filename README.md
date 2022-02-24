@@ -2,6 +2,7 @@
 
 This project was an assignment with the end-goal being a deployed Spring application in Heroku.
 
+Heroku Link: https://data-access-and-display-id-mem.herokuapp.com
 ## Background
 
 For this assignment we were required to make an app using Spring Boot in Java. This connected to a sqlite mock database 
@@ -28,8 +29,7 @@ For the first part of the assignment (not part of the Thymeleaf view) we had cre
 9. For a given customer, their most popular genre (in the case of a tie, display both). Most popular in this context
    means the genre that corresponds to the most tracks from invoices associated to that customer.
 
-For 9th requirement we took the query from our colleagues Richie and Savannah.
-https://github.com/savannah-borst/Assignment_Database
+Courtesy to our colleagues Richie Schuurman & Savannah Borst for sharing their query with us for the 9th requirement.
 
 For the second part of the assignment concerned the Thymeleaf application containing the following:
 
