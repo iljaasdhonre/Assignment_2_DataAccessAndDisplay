@@ -29,25 +29,24 @@ For the first part of the assignment (not part of the Thymeleaf view) we had cre
 9. For a given customer, their most popular genre (in the case of a tie, display both). Most popular in this context
    means the genre that corresponds to the most tracks from invoices associated to that customer.
 
-Courtesy to our colleagues Richie Schuurman & Savannah Borst for sharing their query with us for the 9th requirement.
+
+Courtesy to our colleagues Richie Schuurman & Savannah Borst for sharing their sql query with us for the 9th requirement.
+
 
 For the second part of the assignment concerned the Thymeleaf application containing the following:
 
-1. The home page view, showing the 5 random artists, 5 random songs, and 5 random genres. This home page contains a 
+1. The homepage view, showing the 5 random artists, 5 random songs, and 5 random genres. This homepage contains a 
 search bar which is used to search for tracks. The search bar should not be empty, meaning you can’t have an empty search criterion.
-
 
 2. The search results page will show the query the user has made, i.e. Search results for “Never gonna give you up”.
 Underneath this, the results will be shown for the search. The search results should show a row where the track name, artist,
-album, and genre are shown. The search should also be case insensitive.
+album, and genre are shown. The search should also be case-insensitive.
 
-We have also tested REST endpoints API calls using Postman, a JSON file can be found in the folder resources.
+We have also tested REST endpoints API calls using Postman, a JSON file can be found in the resources folder.
 
 #Credits 
 
 - Iljaas Dhonre
 - Mohammed El Maghawry
 
-#Licence 
-[MIT](https://choosealicense.com/licenses/mit/)
 
