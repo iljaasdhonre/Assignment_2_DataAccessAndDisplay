@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class GenreRepo implements IGenreRepo {
 
     private Connection conn = null;
-    private final String URL = ConnectionHelper.URL;
+    private final String URL = ConnectionHelper.PRODURL;
 
     @Override
     public ArrayList<Genre> getAllGenres() {

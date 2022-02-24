@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class CustomerRepo implements ICustomerRepo {
 
     //Fields
-    private final String URL = ConnectionHelper.URL;
+    private final String URL = ConnectionHelper.PRODURL;
     private Connection conn = null;
 
     //Get all customers from customer table

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ArtistRepo implements IArtistRepo {
 
-    private final String URL = ConnectionHelper.URL;
+    private final String URL = ConnectionHelper.PRODURL;
     private Connection conn = null;
 
 
