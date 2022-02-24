@@ -11,22 +11,19 @@
 <body>
 <h1>Overview</h1>
 <div class="container-fluid">
-    <form th:action="@{/}" method="get">
+    <form th:action="@{/trackSearch}"  method="get">
         <div>
-            <label for="trackSearch">Search:</label>
-            <input id="trackSearch" type="text" />
-            <input type="submit" value="Submit" />
+            <label for="trackSearch" ></label>
+            <input id="trackSearch" type="text" th:name="query" placeholder="Search me..."/>
+            <input class="ui-button" type="submit" value="Search" />
         </div>
     </form>
-    <div th:if="${success} == false">
-        <strong>Oops!</strong> Something has gone wrong :(
-    </div>
     <div class="row odd-row-color">
         <div class="col">
-            <table>
-                <thead>
+            <table class="table">
+                <thead class="table-header">
                 <tr>
-                    <th>Artist</th>
+                    <th>Artists</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,10 +34,10 @@
             </table>
         </div>
         <div class="col">
-            <table>
-                <thead>
+            <table class="table">
+                <thead class="table-header">
                 <tr>
-                    <th>Track</th>
+                    <th>Tracks</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,10 +48,10 @@
             </table>
         </div>
         <div class="col">
-            <table>
-                <thead>
+            <table class="table">
+                <thead class="table-header">
                 <tr>
-                    <th>Genre</th>
+                    <th>Genres</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -71,3 +68,4 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+
