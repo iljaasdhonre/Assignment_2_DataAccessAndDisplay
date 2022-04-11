@@ -3,6 +3,8 @@
 This project was an assignment with the end-goal being a deployed Spring application in Heroku.
 
 Heroku Link: https://data-access-and-display-id-mem.herokuapp.com
+![image](https://user-images.githubusercontent.com/96972844/162761494-8a6aab7c-c760-49f3-ac1c-2154cebfc1d1.png)
+
 ## Background
 
 For this assignment we were required to make an app using Spring Boot in Java. This connected to a sqlite mock database 
